@@ -11,7 +11,7 @@ function aws -a cmd -d 'Universal CLI for AWS'
       end
 
     case profiles
-      command sed -n -e 's/^\[\(.*\)\]/\1/p' "$HOME/.aws/credentials"
+      command cat ~/.aws/{config,credentials} | string replace -r -f "^\[(profile[[:space:]]*)*(.*)\]" '$2' | sort -u
 
     case '*'
       command aws $argv
